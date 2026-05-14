@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - 15 MAY CLINIC</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body class="auth-page">
+  <main class="auth-shell">
+    <section class="auth-visual">
+      <div class="brand-block">
+        <img src="/static/images/logo/logo.jpg" alt="15 MAY CLINIC Logo" class="brand-logo-large">
+        <h1>15 MAY CLINIC</h1>
+        <p>Smart hospital appointment management for patients, doctors, and admins.</p>
+      </div>
+    </section>
+
+    <section class="auth-panel">
+      <div class="auth-card">
+        <h2>Welcome Back</h2>
+        <p class="muted">Sign in to continue to your dashboard.</p>
+
+        <form id="loginForm" class="form">
+          <label>Username</label>
+          <input id="username" name="username" type="text" required placeholder="Enter username">
+
+          <label>Password</label>
+          <input id="password" name="password" type="password" required placeholder="Enter password">
+
+          <button type="submit" class="btn primary full">Sign In</button>
+        </form>
+
+        <p class="form-footer">
+          New patient? <a href="/register-page">Create account</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", initLoginPage);
+  </script>
+</body>
+</html>

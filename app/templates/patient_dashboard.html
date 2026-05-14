@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patient Dashboard - 15 MAY CLINIC</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <nav class="topbar">
+    <div class="brand">
+      <img src="/static/images/logo/logo.jpg" alt="15 MAY CLINIC">
+      <div>
+        <strong>15 MAY CLINIC</strong>
+        <span>Patient Portal</span>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <button class="btn ghost" onclick="scrollToSection('bookingSection')">Book</button>
+      <button class="btn ghost" onclick="scrollToSection('appointmentsSection')">My Appointments</button>
+      <button class="btn danger" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <header class="patient-hero">
+    <div class="hero-text">
+      <p class="eyebrow">Healthcare made simple</p>
+      <h1 id="patientGreeting">Welcome to 15 MAY CLINIC</h1>
+      <p>Choose your department, select a doctor, view available slots, and book your appointment easily.</p>
+      <button class="btn primary" onclick="scrollToSection('bookingSection')">Book Appointment</button>
+    </div>
+
+    <div class="hero-card">
+      <h3>Your Profile</h3>
+      <div id="profileBox" class="profile-box">Loading profile...</div>
+    </div>
+  </header>
+
+  <section class="doctor-slider-section">
+    <h2>Our Medical Team</h2>
+    <p>Meet our specialists across different departments.</p>
+
+    <div class="slider">
+      <div class="slider-track" id="doctorSliderTrack">
+        <img src="/static/images/doctors/1.jpg">
+        <img src="/static/images/doctors/2.jpg">
+        <img src="/static/images/doctors/3.jpg">
+        <img src="/static/images/doctors/4.jpg">
+        <img src="/static/images/doctors/5.jpg">
+        <img src="/static/images/doctors/6.jpg">
+        <img src="/static/images/doctors/7.jpg">
+        <img src="/static/images/doctors/8.jpg">
+        <img src="/static/images/doctors/9.jpg">
+        <img src="/static/images/doctors/10.jpg">
+        <img src="/static/images/doctors/11.jpg">
+        <img src="/static/images/doctors/12.jpg">
+        <img src="/static/images/doctors/13.jpg">
+        <img src="/static/images/doctors/14.jpg">
+        <img src="/static/images/doctors/15.jpg">
+        <img src="/static/images/doctors/16.jpg">
+        <img src="/static/images/doctors/17.jpg">
+        <img src="/static/images/doctors/18.jpg">
+        <img src="/static/images/doctors/19.jpg">
+        <img src="/static/images/doctors/20.jpg">
+        <img src="/static/images/doctors/21.jpg">
+        <img src="/static/images/doctors/22.jpg">
+        <img src="/static/images/doctors/23.jpg">
+
+        <img src="/static/images/doctors/1.jpg">
+        <img src="/static/images/doctors/2.jpg">
+        <img src="/static/images/doctors/3.jpg">
+        <img src="/static/images/doctors/4.jpg">
+        <img src="/static/images/doctors/5.jpg">
+        <img src="/static/images/doctors/6.jpg">
+        <img src="/static/images/doctors/7.jpg">
+        <img src="/static/images/doctors/8.jpg">
+      </div>
+    </div>
+  </section>
+
+  <main class="dashboard-grid">
+    <section id="bookingSection" class="panel large-panel">
+      <div class="section-head">
+        <div>
+          <h2>Book an Appointment</h2>
+          <p>Select department, doctor, date, and available slot.</p>
+        </div>
+      </div>
+
+      <div class="booking-grid">
+        <div>
+          <label>Department</label>
+          <select id="departmentSelect">
+            <option value="">Select department</option>
+
+            <option value="Obstetrics and Gynecology">
+              Obstetrics and Gynecology
+            </option>
+
+            <option value="Surgery">
+              Surgery
+            </option>
+
+            <option value="Internal Medicine and Nephrology">
+              Internal Medicine and Nephrology
+            </option>
+
+            <option value="Dentistry">
+              Dentistry
+            </option>
+
+            <option value="Pediatrics">
+              Pediatrics
+            </option>
+
+            <option value="Dermatology">
+              Dermatology
+            </option>
+
+            <option value="Orthopedics">
+              Orthopedics
+            </option>
+
+            <option value="Neurology">
+              Neurology
+            </option>
+
+            <option value="Chest Diseases">
+              Chest Diseases
+            </option>
+
+            <option value="Ophthalmology">
+              Ophthalmology
+            </option>
+
+            <option value="ENT">
+              ENT
+            </option>
+          </select>
+        </div>
+
+        <div>
+          <label>Doctor</label>
+          <select id="doctorSelect">
+            <option value="">Select doctor</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Date</label>
+          <input id="appointmentDate" type="date">
+        </div>
+
+        <div>
+          <label>Available Slots</label>
+          <select id="slotSelect">
+            <option value="">Select slot</option>
+          </select>
+        </div>
+
+        <div class="span-2">
+          <label>Notes</label>
+          <textarea id="notes" rows="3" placeholder="Optional notes for the doctor"></textarea>
+        </div>
+
+        <button class="btn primary span-2" onclick="bookPatientAppointment()">Confirm Booking</button>
+      </div>
+    </section>
+
+    <section id="appointmentsSection" class="panel">
+      <div class="section-head">
+        <div>
+          <h2>My Appointments</h2>
+          <p>Track and cancel your scheduled appointments.</p>
+        </div>
+        <button class="btn outline" onclick="loadPatientAppointments()">Refresh</button>
+      </div>
+
+      <div id="patientAppointments" class="cards-list">
+        Loading appointments...
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", initPatientDashboard);
+  </script>
+</body>
+</html>

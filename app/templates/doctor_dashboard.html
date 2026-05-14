@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doctor Dashboard - 15 MAY CLINIC</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <nav class="topbar">
+    <div class="brand">
+      <img src="/static/images/logo/logo.jpg" alt="15 MAY CLINIC">
+      <div>
+        <strong>15 MAY CLINIC</strong>
+        <span>Doctor Portal</span>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <button class="btn ghost" onclick="loadDoctorAppointments()">Refresh</button>
+      <button class="btn danger" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <header class="doctor-hero">
+    <div>
+      <p class="eyebrow">Doctor workspace</p>
+      <h1>Manage Your Appointments</h1>
+      <p>View your assigned appointments and update their status according to patient visits.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <h2>Your Appointments</h2>
+          <p>Only appointments assigned to your doctor account are displayed.</p>
+        </div>
+      </div>
+
+      <div id="doctorAppointments" class="cards-list">
+        Loading appointments...
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", initDoctorDashboard);
+  </script>
+</body>
+</html>

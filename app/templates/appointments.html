@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments - Hospital Appointment System</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">
+            <img src="/static/images/logo.png" alt="Hospital Logo">
+            MediCare+
+        </a>
+        <div class="nav-links">
+            <a href="/patient-dashboard-page" class="nav-link">Dashboard</a>
+            <a href="/doctors-page" class="nav-link">Doctors</a>
+            <a href="/appointments-page" class="nav-link active">Appointments</a>
+            <a href="#" id="themeToggle" class="nav-link">🌓 Theme</a>
+            <a href="#" id="logoutBtn" class="nav-link" style="color: var(--danger);">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container animate-slide-up">
+        <div class="page-header">
+            <div>
+                <h1>Your Appointments</h1>
+                <p style="color: var(--text-muted)">Manage and track your medical appointments.</p>
+            </div>
+            <a href="/doctors-page" class="btn btn-primary">Book New</a>
+        </div>
+
+        <div class="loader" id="apptLoader"></div>
+        
+        <div id="apptList" class="list-group stagger-1">
+            <!-- Populated via JS -->
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            requireAuth();
+            
+            const loader = document.getElementById('apptLoader');
+            const listContainer = document.getElementById('apptList');
+            
+            try {
+                loader.classList.add('active');
+                // Could fetch doctors alongside to map doctor names, but to keep it simple, we just use the appointment data.
+                const appointments = await fetchAPI('/patient/appointments/my');
+                loader.classList.remove('active');
+
+                if (appointments.length === 0) {
+                    listContainer.innerHTML = `
+                        <div class="list-item" style="justify-content: center; color: var(--text-muted)">
+                            You have no appointments yet. <a href="/doctors-page" style="margin-left: 10px;">Book your first one.</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Sort by date descending
+                appointments.sort((a, b) => new Date(b.appointment_date) - new Date(a.appointment_date));
+
+                listContainer.innerHTML = appointments.map(appt => {
+                    const apptDate = new Date(appt.appointment_date);
+                    let badgeClass = 'completed'; // default blue for scheduled
+                    if (appt.status === 'Cancelled') badgeClass = 'cancelled';
+                    if (appt.status === 'Completed') badgeClass = 'badge'; // green
+
+                    return `
+                        <div class="list-item">
+                            <div class="list-item-main">
+                                <div class="list-item-title">Consultation with Doctor #${appt.doctor_id}</div>
+                                <div class="list-item-subtitle">
+                                    <span>📅 ${apptDate.toLocaleDateString()}</span>
+                                    <span>🕒 ${apptDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                                    <span class="badge ${badgeClass}">${appt.status}</span>
+                                </div>
+                            </div>
+                            
+                            <div style="display:flex; gap: 10px;">
+                                ${appt.status === 'Scheduled' ? 
+                                    `<button onclick="cancelAppointment(${appt.id})" class="btn btn-danger">Cancel</button>` 
+                                    : ''
+                                }
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+            } catch (error) {
+                console.error(error);
+                loader.classList.remove('active');
+            }
+        });
+
+        async function cancelAppointment(appointmentId) {
+            if (!confirm('Are you sure you want to cancel this appointment?')) return;
+
+            try {
+                await fetchAPI(`/patient/appointments/${appointmentId}`, {
+                    method: 'DELETE'
+                });
+                showToast('Appointment cancelled successfully', 'success');
+                setTimeout(() => window.location.reload(), 1000);
+            } catch (error) {
+                // error is already handled by showToast in fetchAPI
+            }
+        }
+    </script>
+</body>
+</html>

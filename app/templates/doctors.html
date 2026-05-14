@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctors - Hospital Appointment System</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">
+            <img src="/static/images/logo.png" alt="Hospital Logo">
+            MediCare+
+        </a>
+        <div class="nav-links">
+            <a href="/patient-dashboard-page" class="nav-link">Dashboard</a>
+            <a href="/doctors-page" class="nav-link active">Doctors</a>
+            <a href="/appointments-page" class="nav-link">Appointments</a>
+            <a href="#" id="themeToggle" class="nav-link">🌓 Theme</a>
+            <a href="#" id="logoutBtn" class="nav-link" style="color: var(--danger);">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container animate-slide-up">
+        <div class="page-header">
+            <div>
+                <h1>Our Medical Specialists</h1>
+                <p style="color: var(--text-muted)">Select a doctor to book your next appointment.</p>
+            </div>
+        </div>
+
+        <div class="loader" id="doctorsLoader"></div>
+        
+        <div id="doctorsGrid" class="grid stagger-1">
+            <!-- Populated via JS -->
+        </div>
+    </div>
+
+    <!-- Booking Modal Structure inside JS -->
+
+    <script src="/static/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            requireAuth();
+            
+            const loader = document.getElementById('doctorsLoader');
+            const grid = document.getElementById('doctorsGrid');
+            
+            try {
+                loader.classList.add('active');
+                const doctors = await fetchAPI('/doctor/all');
+                loader.classList.remove('active');
+
+                if (doctors.length === 0) {
+                    grid.innerHTML = `<p style="color: var(--text-muted)">No doctors available at the moment.</p>`;
+                    return;
+                }
+
+                // We have two placeholder images: doc1.png and doc2.png
+                grid.innerHTML = doctors.map((doc, idx) => `
+                    <div class="card">
+                        <div class="doc-img-wrapper">
+                            <img src="/static/images/doc${(idx % 2) + 1}.png" alt="${doc.full_name}">
+                        </div>
+                        <div class="card-body">
+                            <div class="doc-dept">${doc.department}</div>
+                            <h3 class="doc-name">${doc.full_name}</h3>
+                            <p class="doc-spec">${doc.specialty}</p>
+                            
+                            <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <span class="badge ${doc.availability_status === 'available' ? 'completed' : 'cancelled'}">
+                                    ${doc.availability_status}
+                                </span>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">
+                                    🕒 ${doc.work_start_hour}:00 - ${doc.work_end_hour}:00
+                                </span>
+                            </div>
+
+                            <button onclick="bookAppointment(${doc.id})" class="btn btn-primary" style="width: 100%;">
+                                Book Appointment
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                console.error(error);
+                loader.classList.remove('active');
+            }
+        });
+
+        async function bookAppointment(doctorId) {
+            // Prompt user for a date (tomorrow 10 AM by default for demo)
+            let dateStr = prompt("Enter appointment date/time (YYYY-MM-DDTHH:MM:SS)", new Date(Date.now() + 86400000).toISOString().slice(0,16));
+            
+            if(!dateStr) return;
+
+            try {
+                await fetchAPI('/patient/appointments', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        doctor_id: doctorId,
+                        appointment_date: dateStr
+                    })
+                });
+                
+                showToast('Appointment booked successfully!');
+                setTimeout(() => window.location.href = '/appointments-page', 1500);
+            } catch (error) {
+                // error handled by fetchAPI and showToast
+            }
+        }
+    </script>
+</body>
+</html>

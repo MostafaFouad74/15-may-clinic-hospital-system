@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register - 15 MAY CLINIC</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body class="auth-page">
+  <main class="auth-shell">
+    <section class="auth-visual">
+      <div class="brand-block">
+        <img src="/static/images/logo/logo.jpg" alt="15 MAY CLINIC Logo" class="brand-logo-large">
+        <h1>15 MAY CLINIC</h1>
+        <p>Create a patient account and book appointments with our medical specialists.</p>
+      </div>
+    </section>
+
+    <section class="auth-panel">
+      <div class="auth-card wide">
+        <h2>Create Patient Account</h2>
+        <p class="muted">Registration is available for patients. Doctors are created by admins.</p>
+
+        <form id="registerForm" class="form grid-form">
+          <div>
+            <label>First Name</label>
+            <input name="first_name" required>
+          </div>
+
+          <div>
+            <label>Last Name</label>
+            <input name="last_name" required>
+          </div>
+
+          <div>
+            <label>Username</label>
+            <input name="username" required>
+          </div>
+
+          <div>
+            <label>Email</label>
+            <input name="email" type="email">
+          </div>
+
+          <div>
+            <label>Password</label>
+            <input name="password" type="password" required>
+          </div>
+
+          <div>
+            <label>Age</label>
+            <input name="age" type="number" required min="1">
+          </div>
+
+          <div>
+            <label>Phone</label>
+            <input name="phone" required placeholder="010XXXXXXXX">
+          </div>
+
+          <div>
+            <label>Gender</label>
+            <select name="gender" required>
+              <option value="">Select gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+
+          <div class="span-2">
+            <label>Address</label>
+            <input name="address" required>
+          </div>
+
+          <div class="span-2">
+            <label>Preferred Department</label>
+            <input name="department" value="General" required>
+          </div>
+
+          <button type="submit" class="btn primary full span-2">Register</button>
+        </form>
+
+        <p class="form-footer">
+          Already have an account? <a href="/login-page">Sign in</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", initRegisterPage);
+  </script>
+</body>
+</html>

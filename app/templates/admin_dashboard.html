@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - 15 MAY CLINIC</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <nav class="topbar">
+    <div class="brand">
+      <img src="/static/images/logo/logo.jpg" alt="15 MAY CLINIC">
+      <div>
+        <strong>15 MAY CLINIC</strong>
+        <span>Admin Portal</span>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <button class="btn ghost" onclick="loadAdminData()">Refresh</button>
+      <button class="btn danger" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <header class="admin-hero">
+    <div>
+      <p class="eyebrow">Hospital administration</p>
+      <h1>Control Center</h1>
+      <p>Manage doctors, patients, appointments, and hospital data from one place.</p>
+    </div>
+  </header>
+
+  <main class="admin-layout">
+    <section class="panel">
+      <h2>Create Doctor</h2>
+      <form id="createDoctorForm" class="form grid-form">
+        <div>
+          <label>Username</label>
+          <input name="username" required>
+        </div>
+
+        <div>
+          <label>Password</label>
+          <input name="password" type="password" required>
+        </div>
+
+        <div class="span-2">
+          <label>Full Name</label>
+          <input name="full_name" required>
+        </div>
+
+        <div>
+          <label>Specialty</label>
+          <input name="specialty" required>
+        </div>
+
+        <div>
+          <label>Department</label>
+          <input name="department" required>
+        </div>
+
+        <div>
+          <label>Email</label>
+          <input name="email" type="email">
+        </div>
+
+        <div>
+          <label>Availability</label>
+          <select name="availability_status">
+            <option value="available">available</option>
+            <option value="unavailable">unavailable</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Start Hour</label>
+          <input name="work_start_hour" type="number" min="0" max="23" value="8">
+        </div>
+
+        <div>
+          <label>End Hour</label>
+          <input name="work_end_hour" type="number" min="0" max="23" value="16">
+        </div>
+
+        <button class="btn primary span-2" type="submit">Create Doctor</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <h2>Doctors</h2>
+          <p>View and delete doctor records.</p>
+        </div>
+      </div>
+      <div id="adminDoctors" class="cards-list">Loading doctors...</div>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <h2>Patients</h2>
+          <p>View and delete patient records.</p>
+        </div>
+      </div>
+      <div id="adminPatients" class="cards-list">Loading patients...</div>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <h2>All Appointments</h2>
+          <p>Monitor hospital appointment activity.</p>
+        </div>
+      </div>
+      <div id="adminAppointments" class="cards-list">Loading appointments...</div>
+    </section>
+  </main>
+
+  <script src="/static/js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", initAdminDashboard);
+  </script>
+</body>
+</html>
