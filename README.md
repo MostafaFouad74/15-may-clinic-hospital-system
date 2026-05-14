@@ -46,70 +46,88 @@ docker-compose up --build -d
 - Prometheus: `http://localhost:9090`
 
 ## Team Contributions
-Team Contributions
-1. Authentication & Security (youssef elbatal)
 
-Responsible for:
-User login/register
-JWT authentication
-Password hashing
-Role-based authorization
+### 1. Authentication & Security *(Youssef Elbatal)*
 
-Code/files:
+**Responsible for:**
+- User login/register
+- JWT authentication
+- Password hashing
+- Role-based authorization
+
+**Code/files:**
+```text
 app/auth.py
 app/routers/auth_router.py
 app/core/config.py
+```
 
-2. Database & CRUD Operations (Mostafa Fouad)
+---
 
-Responsible for:
-Database connection
-SQLAlchemy models
-CRUD operations for doctors, patients, and appointments
+### 2. Database & CRUD Operations *(Mostafa Fouad)*
 
-Code/files:
+**Responsible for:**
+- Database connection
+- SQLAlchemy models
+- CRUD operations for doctors, patients, and appointments
+
+**Code/files:**
+```text
 app/database.py
 app/models.py
 app/schemas.py
 app/crud.py
+```
 
-3. Appointment & Scheduling System (abdelrahman badawy)
+---
 
-Responsible for:
-Appointment booking/canceling
-Preventing double booking
-Doctor schedule management
-Appointment status updates
+### 3. Appointment & Scheduling System *(Abdelrahman Badawy)*
 
-Code/files:
+**Responsible for:**
+- Appointment booking/canceling
+- Preventing double booking
+- Doctor schedule management
+- Appointment status updates
+
+**Code/files:**
+```text
 app/services/booking_service.py
 app/services/slot_service.py
 app/routers/patient_router.py
 app/routers/doctor_router.py
+```
 
-4. Admin Features, Validation & Testing (mahmoud mohamed)
+---
 
-Responsible for:
-Admin dashboard APIs
-Managing doctors and patients
-Input validation
-API testing with Pytest
+### 4. Admin Features, Validation & Testing *(Mahmoud Mohamed)*
 
-Code/files:
+**Responsible for:**
+- Admin dashboard APIs
+- Managing doctors and patients
+- Input validation
+- API testing with Pytest
+
+**Code/files:**
+```text
 app/routers/admin_router.py
 tests/
+```
 
-5. Frontend, Caching & Monitoring (yousef ragab)
+---
 
-Responsible for:
-Frontend UI using HTML/CSS/JavaScript
-Redis caching
-Logging system
-Prometheus/Grafana monitoring
-Docker setup
+### 5. Frontend, Caching & Monitoring *(Yousef Ragab)*
 
-Code/files:
+**Responsible for:**
+- Frontend UI using HTML/CSS/JavaScript
+- Redis caching
+- Logging system
+- Prometheus/Grafana monitoring
+- Docker setup
+
+**Code/files:**
+```text
 app/templates/
 app/static/
 app/core/logger.py
 app/core/redis_client.py
+```
